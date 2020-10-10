@@ -1,0 +1,94 @@
+
+.all-shops
+{
+    /* background-color: #0f3057; */
+    text-align: center;
+    color: gray;
+    margin: 5% 20% 5% 20%;
+    padding: 3% 5%;
+    
+    
+}
+.shop-heading
+{
+    text-align: center;
+}
+.heading-main
+{
+    text-align: center;
+    margin-top : 5%;
+}
+.products
+{
+    color: gray;
+}
+.products:hover
+{
+    color: blue;
+    text-decoration: dotted;
+}
+.between-shop
+{
+    border-radius: 30px;
+    margin: 5%;
+    padding: 3%  ;
+    background-color: #0f3057;
+}
+.btn-dark
+{
+   color: gray;
+}
+.cont-login
+{
+    padding: 5%;
+}
+@media (max-width:800px)
+{
+    .container
+    {
+        padding: 0% 0% 0% 0%;
+        margin:0% 0% 0% 0%;
+    }
+    .col-sm
+    {
+        padding-top: 5%;
+    }
+    .all-shops
+    {
+        margin: 0% 0% 0% 0%;
+        padding: 0% 0%;
+    }
+    .heading-main
+    {
+        text-align: center;
+        margin-top : 0%;
+    }
+    .row
+    {
+        margin: 0%;
+        padding: 0%;
+    }
+    div {
+        font-size: x-small;
+    }
+    .col-sm{
+        margin: 0% 0% 0% 0%;
+        padding: 1% 1%;
+    }
+}
+.login
+{
+    background-color: purple,black;
+    background-blend-mode: overlay;
+}
+body
+{
+    background-image: url("/public/shopping.jpg");
+}
+#footer
+{
+    margin-top: 13%;
+    padding: 5%;
+    text-align: center;
+    background-color: #363062
+}

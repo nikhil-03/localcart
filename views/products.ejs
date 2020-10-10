@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalCart</title>
+    
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/my-order">My Order</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/logged-in">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://nikhil-03.github.io/My-personal-website/">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+    <h1 class="heading-main" >Products</h1>
+   <div class="main-all">
+        <div class="all-shops">
+
+       
+
+            <% products.forEach(function (product) {  %> 
+
+          <div data-aos="fade-up"
+          data-aos-anchor-placement="top-bottom" class="between-shop">
+            <h2 class="shop-heading"> <%= product.name %>  </h2>
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    BRAND :<%= product.brand %> 
+                  </div>
+                  <div class="col-sm">
+                    PRICE:<%= product.price %> 
+                  </div>
+                </div>
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                   WEIGHT: <%= product.wt %> 
+                  </div>
+                  <div class="col-sm cart-value">
+                    <!-- ///////////////// -->
+                    <form action="/add-cart" method="POST">
+
+                         <input type="hidden" value="<%=gid%>" name="gid">
+                        <button type="submit" value=" <%= product._id %>  " class="btn btn-dark" name="product">Add to Cart</button>
+                      </form>
+                    <!-- ///////////////// -->
+                   </div>
+                </div>
+              </div>
+              <!-- <div><a href=""><h3 class="products">PRODUCTS</h3></a></div> -->
+          </div>
+        <!-- </div> -->
+
+<% }) %> 
+
+<script>
+  AOS.init({
+    duration : 1200,
+  });
+</script>
+
+<script src="index.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+ </body>
+ </html>                

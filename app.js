@@ -44,14 +44,26 @@ const shop=
 const Shop=mongoose.model("Shop",shop);
 const wish=
 {
-   shop_id:String,
-   user_id:String,
-   product:String
+    shop_name:String,
+    mobile:String,
+    address:String,
+    googleId:String,
+    
+    product:
+     [{
+         wt:String,
+         shopid:String,
+         brand:String,
+         name:String,
+         barcode:String,
+         price:String
+     }]
 };
+
 const Wish=mongoose.model("Wish",wish);
 const userSchema = new mongoose.Schema({
-    email:String,
-    passport:String,
+    img:String,
+    name:String,
     googleId:String
 });
 userSchema.plugin(findOrCreate);
@@ -73,20 +85,32 @@ passport.use(new GoogleStrategy({
     userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
   },
   function(accessToken, refreshToken, profile, cb)    {
-    //   console.log(profile);
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      // console.log(profile.photos[0].value);
+    User.findOrCreate({ googleId: profile.id,name:profile.displayName,img:profile.photos[0].value }, function (err, user) {
       return cb(err, user);
     });
   }
 ));
 app.get("/",function(req,res)
 {
+
     res.render("register")
 });
 app.get("/logged-in",function(req,res){
     
     if(req.isAuthenticated())
     {
+       Wish.findOne({googleId:req.user.id},function(err,foundlist){
+        if(!err)
+        {
+            if(!foundlist){
+                const list=new Wish({
+                    googleId:req.user.id
+                });
+                list.save();
+            }
+        }
+      })
      Shop.find({},function(err,shops){
         res.render("home",{ shops:shops})
     });  
@@ -100,11 +124,41 @@ app.post("/add-cart",function(req,res){
   // console.log(req.body.product);
   // console.log(req.body.gid);
   const user=req.user.id;
-    // console.log(user);
-  const list=new Wish({
-    user_id:user , product:req.body.product , shop_id:req.body.gid
-  });
-  list.save();
+  //   // console.log(user);
+  // const list=new Wish({
+  //   user_id:user , product:req.body.product , shop_id:req.body.gid
+  // });
+  // list.save();
+  Wish.findOne({googleId:req.user.id},function(err,foundlist){
+    if(!err)
+    {
+        if(!foundlist){
+            const list=new Wish({
+                googleId:req.user.id
+            });
+            list.save();
+        }
+    }
+  })
+
+  Wish.findOneAndUpdate({googleId:user},
+    {
+     $push:
+     {
+         product:{
+             name:req.body.name, 
+             brand:req.body.brand, 
+              wt:req.body.wt,
+              price:req.body.price,
+              shopid:x
+         }
+     }
+      
+ }).then(function (post) {
+         console.log(post);
+        //  res.json({success: true});
+        });
+
 
 
   Shop.findOne({ googleId:x},function(err,products)
@@ -128,32 +182,38 @@ function(req, res) {
 
 app.get("/my-order",function(req,res){
   const x=req.user.id;
-    Wish.findOne({ user_id :x},function(err,products)
-    {
-      console.log(products.user_id);
-      console.log(products.shop_id);
-      console.log(products.product);
-      if(products){
-     res.render("myorder",{ products:products });  }
-    });
+  Wish.findOne({ googleId:x},function(err,products)
+  {
+    if(products){
+   res.render("myorder",{ products:products.product });  }
+  }); 
 });
 
+app.post("/delete",function(req,res){
+//   const id=req.body.id
+
+
+// Wish.update(
+//   {},
+//   {
+//     $pull: 
+//     {
+//       product: {_id : id}
+//     }
+//   },{multi:true}
+//   )
 
 
 
 
+//   console.log(id);
+  // Wish.findByIdAndRemove(id,function(err){
+  //   if(err)console.log(err);
+  // });
 
 
-
-
-
-
-
-
-
-
-
-
+  res.redirect("/my-order");
+});
 
 
 

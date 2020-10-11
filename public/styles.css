@@ -1,4 +1,7 @@
-
+body
+{
+    background-color: #e8505b;
+}
 .all-shops
 {
     /* background-color: #0f3057; */
@@ -32,7 +35,7 @@
     border-radius: 30px;
     margin: 5%;
     padding: 3%  ;
-    background-color: #0f3057;
+    background-color: white;
 }
 .btn-dark
 {
